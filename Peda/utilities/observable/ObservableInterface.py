@@ -1,6 +1,6 @@
 from threading import Thread
 
-from gateway.observateur.Observateur import Observer
+from Peda.utilities.observateur.Observateur import Observer
 
 
 class ClientObservable:

@@ -1,12 +1,11 @@
 import paho.mqtt.client as paho
 
-from gateway.observable.ObservableInterface import ClientObservable
-from gateway.observateur.Observateur import Observer
-from gateway.singleton.singleton import SingletonMeta
+from ..observable.ObservableInterface import ClientObservable
+from ..observateur.Observateur import Observer
+from ..singleton.singleton import SingletonMeta
 
 
-class ClientMqtt(Observer):
-
+class ClientMqtt(Observer, ClientObservable):
     __metaclass__ = SingletonMeta
 
     def __init__(self, parent=None):
@@ -25,7 +24,6 @@ class ClientMqtt(Observer):
         self.publish(subject.event, str(subject.message))
 
     def onpublish(self, client, userdata, result) -> None:
-        print('coucou')
         if self.Debug:
             print(f"Message publié de : {client} avec les données : {userdata}, renvoyant le resultat : {result}")
         else:
@@ -34,6 +32,11 @@ class ClientMqtt(Observer):
     def connection(self) -> None:
         self.client.connect(self.serveur, self.port, keepalive=3600)
         self.client.on_publish = self.onpublish
+        self.client.on_message = self.onmessage
 
-    def publish(self, Topic, payload):
-        self.client.publish(topic=Topic, payload=payload, qos=2)
+    def publish(self, topic, payload):
+        self.client.publish(topic=topic, payload=payload, qos=2)
+
+    def onmessage(self, client, userdata, message):
+        self.valeurs = message
+        self.notify_observer(message.topic)

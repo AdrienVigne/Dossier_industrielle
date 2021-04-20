@@ -1,5 +1,5 @@
-from gateway.Mqtt.clientMqtt import ClientMqtt
-from gateway.ble.scannerBle import ClientScanner
+from ..utilities.Mqtt.clientMqtt import ClientMqtt
+from .ble.scannerBle import ClientScanner
 
 
 class Gateway:

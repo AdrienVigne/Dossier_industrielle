@@ -2,8 +2,9 @@ import threading
 
 from bluepy.btle import Scanner, DefaultDelegate
 
-from gateway.observable.ObservableInterface import ClientObservable
-from gateway.observateur import Observateur
+
+from Peda.utilities.observable.ObservableInterface import ClientObservable
+from Peda.utilities.observateur import Observateur
 
 
 class ScannerInterface(DefaultDelegate, ClientObservable):
