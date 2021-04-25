@@ -1,6 +1,7 @@
-import gateway.gateway as gate
+import Peda.gateway.gateway as gate_peda
 
 if __name__ == '__main__':
-    g = gate.Gateway()
+    g = gate_peda.Gateway()
+    g.clientMqtt.Debug = True
     g.run()
 

@@ -13,17 +13,10 @@ class Gateway:
         self.clientMqtt.port = 456
         self.clientMqtt.connection()
 
-
     def run(self):
         self.clientScanner.run()
 
 
-
-
 if __name__ == '__main__':
     G = Gateway()
-    # G.liste_beacon = ["0x:45:78:89:5:2:5"]
-    # G.temps_beacon = 25
-    # G.temps_scan = 12
-    # G.temps_pause = 2
     G.start()
