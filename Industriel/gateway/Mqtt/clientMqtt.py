@@ -12,7 +12,7 @@ class ClientMqtt(Observer):
     def __init__(self, parent=None):
         super(ClientMqtt, self).__init__()
         self.nom = "Client Mqtt"
-        self.serveur = "127.0.0.1"
+        self.serveur = "127.0.0.1"Cl
         self.port = 8080
         self.client = paho.Client(self.nom)
         self.client.on_publish = self.onpublish

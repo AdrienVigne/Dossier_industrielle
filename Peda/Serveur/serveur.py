@@ -26,5 +26,8 @@ class Serveur_traitement:
 
 
 if __name__ == '__main__':
+
     S = Serveur_traitement()
+    S.Traitement.add_gate("ac:23:3f:a3:33:d6")
+
     S.run()

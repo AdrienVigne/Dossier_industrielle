@@ -19,3 +19,11 @@ class clientMysql():
         sql = f'Insert into distance (Gateway,device,distance) values ({gate},{dev},{distance})'
         self.cursor.execute(sql)
         self.client.commit()
+
+    def get_position(self,gate):
+        sql = f"Select x,y from position_gateway where gateway = '\"{gate}\"';"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        #print(result)
+        return result[0]
+
