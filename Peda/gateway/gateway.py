@@ -13,32 +13,40 @@ class Gateway:
         self.client_beacon = Beacon()
         self.clientMqtt.Debug = True
         self.clientScanner.add_observateur(self.clientMqtt)
+        self.clientMqtt.add_observer(self.clientScanner)
         self.clientMqtt.serveur = "192.168.0.2"
         self.clientMqtt.port = 456
         self.clientMqtt.set_nom("Pi0")
         self.clientMqtt.connection()
-        self.temps_scan = 10
-        self.temps_beacon = 1
-        self.temps_pause = 1
-        self.clientScanner.run()
+        self.temps_scan = 1
+        self.temps_beacon = 0
+        self.temps_pause = 10
+        self.clientScanner.start()
+        self.client_beacon.start()
+        self.clientMqtt.start()
+
 
     def run(self):
+        print("Lancement ")
         while 1:
+            print("Debut scan")
             t = time.time()
             self.clientScanner.unstop()
-            while (t - time.time()) < self.temps_scan:
+            while (time.time()-t) < self.temps_scan:
                 pass
             self.clientScanner.stop()
             print('Fin scanner')
             t = time.time()
             self.client_beacon.unstop()
-            while (t - time.time()) < self.temps_beacon:
+            while (time.time()-t) < self.temps_beacon:
                 pass
             self.client_beacon.stop()
             print('Fin beacon')
             t = time.time()
-            while (t - time.time()) < self.temps_pause:
+            self.clientMqtt.unstop()
+            while (time.time()-t) < self.temps_pause:
                 pass
+            self.clientMqtt.stop()
             print('Fin pause')
 
 

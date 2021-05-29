@@ -18,7 +18,7 @@ class Beacon(threading.Thread):
 
     def run(self) -> None:
         while 1:
-            if not self.__stop_event:
+            if self.__stop_event:
                 if self.passage:
                     os.system("sudo hciconfig hci0 up")
                     os.system("sudo hciconfig hci0 leadv 3")
